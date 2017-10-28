@@ -1,0 +1,305 @@
+<!--
+		HTML Web Application Designed only for
+				Car Parking System		-		Server Side (<---NOTE)
+
+		By
+			Pawan Terdal			-	1PE15IS074 
+			Rahul Putcha Gautham		-	1PE15IS079
+-->
+
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "UTF-8">
+		<title>
+				The Parking System
+		</title>
+
+		<!--------------------------CSS Files Linking-------------------------->
+		<link rel = "stylesheet" type = "text/css" href = "./resources/css/normalize.css">
+		<link rel = "stylesheet" type = "text/css" href = "./resources/css/grid.css">
+		<link rel = "stylesheet" type = "text/css" href = "./resources/css/style.css">
+
+		<!--------------------------JQuery Include File------------------------>
+		<script src = "./resources/scripts/jquery.min.js"></script>
+	</head>
+
+	<body>
+		<!--------------------------Page 1 : Home-------------------------->
+		<header id = "Home">
+			<!-----------------------Page : Banner---------------------------->
+			<nav class = "row">
+				<a href = "http://pesitsouth.pes.edu"><img class = "logo" src = "./resources/images/logo.jpg"></a>
+				<div class = "main-nav">
+					<ul>
+						<li><a class = "home" >Home</a></li>
+						<li><a class = "new"  >New Space</a></li>
+						<li><a class = "exist">Parking Space</a></li>
+						<li><a class = "about">About</a></li>
+					</ul>
+				</div>
+			</nav>
+			<div class = "header-text">
+				<h1>The Parking System</h1>
+				<h4>Done By PESIT-Students</h4>
+			</div>
+		</header>
+
+		<!--------------------------Page 2 : Generate New Parking Space-------------------------->
+		<section id = "New">
+			<div class = "row">
+				<h2>New Parking Space</h2>
+				<div class = "col span-1-of-2">
+				<h3>Enter the Below Details :</h3>
+					<h4># of Parking Lots present</h4> 
+					<div class = "row">
+						<div class = "col span-1-of-3">
+							<label>For Car</label>
+						</div>
+						<div class = "col span-2-of-3">
+							<input type = "number" name = "maxCar" 
+								id = "maxCar" placeholder = "No of Cars Slots" 
+								required>
+						</div>
+					</div>
+					<div class = "row">
+						<div class = "col span-1-of-3">
+							<label>For Bike  (if any)</label>
+						</div>
+						<div class = "col span-2-of-3">
+							<input type = "number" name = "maxBike" 
+								id = "maxBike" placeholder = "No of Bike Slots">
+						</div>
+					</div>
+					<div class = "row">
+						<div class = "col span-1-of-3">
+							<label>For Cycle (if any) or Others</label>
+						</div>
+						<div class = "col span-2-of-3">
+							<input type = "number" name = "maxOther" 
+								id = "maxOther" placeholder = "Other Vehicle Slots" >
+						</div>
+					</div>
+					<div class = "row">
+						<div class = "row">
+							<label># of Reserved Parking Lots Available  (if any)</label>
+						</div>
+						<div class = "row">
+							<input type = "number" name = "maxReserved" 
+								id = "maxReserved" placeholder = "No of Reserved Slots">
+						</div>
+					</div>
+					<div class = "row">
+						<div class = "row">
+							<label>Max # of Extra Space Parking Lots (if any)</label>
+						</div>
+						<div class = "row">
+							<input type = "number" name = "maxExtra" 
+								id = "maxExtra" placeholder = "No of Extra Slots">
+						</div>
+					</div>
+					<div class = "row">
+						<button class = "row button" type = "submit" 
+							value = "Generate" 
+						onclick = "generateSheet();">
+						Generate
+						</button>
+					</div>
+				</div>
+				<div class = "col span-1-of-2 page2">
+					<ul class = "col span-1-of-2 page2-images row">
+						<li><figure><img src = "./resources/images/1.jpg"></figure></li>
+						<li><figure><img src = "./resources/images/2.jpg"></figure></li>
+					</ul>
+					<ul class = "col span-1-of-2 page2-images row">
+						<li><figure><img src = "./resources/images/3.jpg"></figure></li>
+						<li><figure><img src = "./resources/images/4.jpg"></figure></li>
+					</ul>
+					<ul class = "col span-1-of-2 page2-images row">
+						<li><figure><img src = "./resources/images/5.jpg"></figure></li>
+						<li><figure><img src = "./resources/images/6.jpg"></figure></li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+
+
+		<!--------------------------Page 3 : Parking Space Layout-------------------------->
+		<section id = "Layout">
+			<h2>Existing Slot Layout</h2>
+			<div class = "page3-message">
+				<p>
+					NOTE : Set the Values in "<a href="#New">New Page</a>"
+					then Click on <em>"Generate"</em> to Create the Parking Sheet in this Page
+				</p>
+			</div>
+			<div id = "sheet" class = "row">
+				<div class = "col span-1-of-3">
+					<div class = "row">
+						<h3>Car</h3>
+					</div>
+					<div id = "car-space" class = "row slot">
+					</div>
+				</div>
+
+				<div class = "col span-1-of-3">
+					<div class = "row">
+						<h3>Bikes</h3>
+					</div>
+					<div id = "bike-space" class = "row slot">
+					</div>
+				</div>
+
+				<div class = "col span-1-of-3">
+					<div class = "row">
+						<h3>Others</h3>
+					</div>
+					<div id = "other-space" class = "row slot">
+					</div>
+				</div>
+			</div>
+
+			<div class = "row">
+				<div class = "col span-2-of-3">
+					<div class = "row">
+						<h3>Reserved</h3>
+					</div>
+					<div id = "reserved-space" class = "row slot">
+					</div>
+				</div>
+				<div class = "col span-1-of-3">
+					<div class = "row" >
+						<h3>Extra</h3>
+					</div>
+					<div id = "extra-space" class = "row slot">
+					</div>
+				</div>
+			</div>
+
+			<div class = "row">
+				<input type = "range" name = "sheetSize" id = "sheetSize" min = 50 max = 100 value = 75 onclick = "magnify()">
+			</div>
+		</section>
+
+
+
+		<!--------------------------Page 4 : Vehicle Details-------------------------->
+		<section id = "Detail">
+			<h2>Parking Slot / Vehicle Details</h2>
+			<div class = "row">
+				<div class = "row" style = "padding-left : 30px;">
+					<label>Vehicle Details</label>
+				</div>
+				<div class = "row">
+					<div class = "col span-1-of-4">
+						<input type = "text" name = "state" 
+							id  = "state" placeholder = "State">
+					</div>
+					<div class = "col span-1-of-4">
+						<input type = "number" name = "region_code" 
+							id  = "region_code" placeholder = "Region Code">
+					</div>
+					<div class = "col span-1-of-4">
+						<input type = "text" name = "region_letter" 
+							id  = "region_letter" placeholder = "Region Letter">
+					</div>
+					<div class = "col span-1-of-4">
+						<input type = "number" name = "state" id = "state" placeholder = "State">
+					</div>
+				</div>
+
+				<div class = "row" style = "padding-left : 30px;">
+					<label>Owner Details</label>
+				</div>
+				<div class = "row">
+					<div class = "col span-1-of-2">
+						<input type = "text" name = "first_name" 
+							id  = "first_name" placeholder = "Owner First Name" 
+							style = "text-align : left;">
+					</div>
+					<div class = "col span-1-of-2">
+						<input type = "text" name = "last_name" 
+							id  = "last_name" placeholder = "Owner Last Name"
+							style = "text-align : left;">
+					</div>
+				</div>
+
+				<div class = "row" style = "padding-left : 30px;">
+					<label>Vehicle Type</label>
+				</div>
+				<div class = "row">
+					<div class = "col span-1-of-3">
+						<input type = "radio" name = "vehicleType" 
+							id  = "car" value = "car" checked>
+						<label for="car">Car</label>
+					</div>
+					<div class = "col span-1-of-3">
+						<input type = "radio" name = "vehicleType" 
+							id  = "bike" value = "bike">
+						<label for="bike">Bike</label>
+					</div>
+					<div class = "col span-1-of-3">
+						<input type = "radio" name = "vehicleType" 
+							id  = "others" value = "others">
+						<label for="others">Others</label>
+					</div>
+				</div>
+
+				<div class = "row" style = "padding-left : 30px;">
+					<label>Parking Slot Type</label>
+				</div>
+				<div class = "row">
+					<div class = "col span-1-of-2">
+						<input type = "radio" name = "slotType" 
+							id  = "normal" value = "normal" checked>
+						<label for="normal">Normal</label>
+					</div>
+					<div class = "col span-1-of-2">
+						<input type = "radio" name = "slotType" 
+							id  = "reserved" value = "reserved">
+						<label for="reserved">Reserved</label>
+					</div>
+				</div>
+				<div class = "row">
+					<div class = " row button" style = "margin-top : 60px;">Print</div>
+				</div>
+			</div>
+		</section>
+
+		<!---------------------------------Page 4 : About------------------------------------->
+		<section id = "About">
+			<u style = "color : lightblue;"><h3 style = "color : white">About</h3></u>
+
+			<div class = "col span-1-of-2" style = "margin : 0;">
+				<figure class = "row">
+					<img class="logo" src = "" width = 105px height = 105px>
+				</figure>
+					<div style = "margin-bottom : 50px;width : 60%;float : left;color : lightgray;">
+						<p>Rahul Putcha Gautham</p>
+						<p>1PE15IS079</p>
+						<p>rahulgautham95@gmail.com</p>
+
+					</div>
+			</div>
+			<div class = "col span-1-of-2" style = "margin : 0;">
+				<figure class = "row">
+					<img class ="logo"  src = "" width = 105px height = 105px>
+				</figure>
+					<div style = "margin-bottom : 50px;width : 60%;float : left;color : lightgray;">
+						<p>Pawan Terdal</p>
+						<p>1PE15IS074</p>
+						<p>pterdal@gmail.com</p>
+					</div>
+			</div>			
+		</section>
+
+
+
+		<!----------------------------JavaScript Files Linking----------------------------->
+		<script src = "./resources/scripts/script_jquery.js"></script>
+		<script src = "./resources/scripts/script.js"></script>
+
+	</body>
+</html>
